@@ -1,0 +1,75 @@
+﻿<Window x:Class="SocialNetwork.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SocialNetwork"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Title="Social Network" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Database monitor" HorizontalAlignment="Center"/>
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <StackPanel Orientation="Horizontal" Margin="0 10 0 10">
+                    <Label Content="Пользователи" DockPanel.Dock="Left"/>
+                    <Button Content="Добавить" x:Name="AddGroupButton" Click="AddGroupButton_Click" DockPanel.Dock="Right" Margin="0 0 10 0"/>
+                    <CheckBox Content="Показать удаленных" x:Name="ShowDeleted" IsChecked="False" VerticalAlignment="Center" Checked="ShowDeleted_Checked" Unchecked="ShowDeleted_Unchecked"/>
+                </StackPanel>
+                <ScrollViewer CanContentScroll="True" Height="180">
+                    <ListView x:Name = "usersList" ItemsSource="{Binding UsersView}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}"/>
+                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}"/>
+                                <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding Path=Surname}"/>
+                                <GridViewColumn Header="Avatar" DisplayMemberBinding="{Binding Path=Avatar}"/>
+                                <GridViewColumn Header="Birthday" DisplayMemberBinding="{Binding Path=Birthday}"/>
+                            </GridView>
+                        </ListView.View>
+                        <ListView.Resources>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
+                            </Style>
+                        </ListView.Resources>
+                    </ListView>
+                </ScrollViewer>
+            </StackPanel>
+        </Grid>
+        <StackPanel Orientation="Vertical" 
+            Grid.Row="0" Grid.Column="1" Margin="10 0 10 0">
+            <WrapPanel Orientation="Horizontal">
+                <Button Content="Gender" x:Name="GenderButton"
+                Click="GenderButton_Click"/>
+                <Button Content="Age" x:Name="AgeButton"
+                Click="AgeButton_Click"/>
+            </WrapPanel>
+            <ScrollViewer CanContentScroll="True" Height="180">
+                <ListView ItemsSource="{Binding Pairs}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn 
+                Header="Key"
+                DisplayMemberBinding="{Binding Path=Key}"/>
+                            <GridViewColumn 
+                Header="Value"
+                DisplayMemberBinding="{Binding Path=Value}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </ScrollViewer>
+        </StackPanel>
+    </Grid>
+</Window>
